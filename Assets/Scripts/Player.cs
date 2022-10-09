@@ -8,8 +8,9 @@ public class Player : MonoBehaviour
 {
     public GameObject projectile;
     
-    public float speed = 20.0f;
-    public float rotateSpeed = 100.0f;
+    [SerializeField] public float speed = 20.0f;
+    [SerializeField] public float rotateSpeed = 45.0f;
+    [SerializeField] public float eggSpeed = 40.0f;
     
     private bool _keyMode = false;
     private Rigidbody2D _rigidbody;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _bounds  = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -40,7 +42,8 @@ public class Player : MonoBehaviour
         _allowFire = false;
         GameObject spawnedProjectile = Instantiate(projectile);
         spawnedProjectile.transform.up = transform.up;
-        spawnedProjectile.transform.position = transform.position + (transform.up * 3);
+        spawnedProjectile.transform.position = transform.position + (transform.up * 4);
+        spawnedProjectile.GetComponent<Rigidbody2D>().velocity = (Vector2)(transform.up * (eggSpeed + _rigidbody.velocity.magnitude)); 
         yield return new WaitForSeconds(.2f);
         _allowFire = true;
     }
@@ -55,15 +58,14 @@ public class Player : MonoBehaviour
             speed += Input.GetAxis("Vertical");
             newPos += transform.up * (Time.deltaTime * speed);
 
-            
-
             float wrapX = _bounds.x + 4f;
             float wrapY = _bounds.y + 4f;
+            
             
             newPos.x = (((newPos.x + wrapX) % (wrapX * 2)) + (wrapX * 2)) % (wrapX * 2) - wrapX;
             newPos.y = (((newPos.y + wrapY) % (wrapY * 2)) + (wrapY * 2)) % (wrapY * 2) - wrapY;
             
-            transform.position = newPos;
+            _rigidbody.position = newPos;
         }
         else
         {
@@ -73,10 +75,7 @@ public class Player : MonoBehaviour
             pos.x = Math.Clamp(pos.x, -_bounds.x, _bounds.x);
             pos.y = Math.Clamp(pos.y, -_bounds.y, _bounds.y);
             
-            transform.position = pos;
+            _rigidbody.position = pos;
         }
     }
-
-    
-    
 }

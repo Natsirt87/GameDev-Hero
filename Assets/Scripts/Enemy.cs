@@ -8,16 +8,10 @@ public class Enemy : MonoBehaviour
 {
     public EnemyManager manager;
     
-    private int health = 100;
-
-    void Start()
-    {
-        Debug.Log(manager);
-    }
+    [SerializeField] public int health = 100;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other);
         if (other.gameObject.CompareTag("Projectile"))
         {
             Destroy(other.gameObject);
@@ -30,7 +24,11 @@ public class Enemy : MonoBehaviour
                 Destroy(this.gameObject);
                 manager.SpawnEnemy();
             }
-                
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            manager.SpawnEnemy();
         }
     }
 }
