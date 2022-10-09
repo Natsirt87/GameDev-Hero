@@ -22,13 +22,17 @@ public class Enemy : MonoBehaviour
             if (health <= 0)
             {
                 Destroy(this.gameObject);
-                manager.SpawnEnemy();
+                manager.SpawnEnemy(true);
             }
         }
         else
         {
             Destroy(this.gameObject);
-            manager.SpawnEnemy();
+            
+            if (other.gameObject.CompareTag("Player"))
+                manager.SpawnEnemy(true);
+            else
+                manager.SpawnEnemy(false);
         }
     }
 }

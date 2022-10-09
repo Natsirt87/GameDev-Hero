@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
@@ -11,12 +14,16 @@ public class Player : MonoBehaviour
     [SerializeField] public float speed = 20.0f;
     [SerializeField] public float rotateSpeed = 45.0f;
     [SerializeField] public float eggSpeed = 40.0f;
-    
+
+    [SerializeField] public TextMeshProUGUI controlMode;
+    [SerializeField] public TextMeshProUGUI collisionsText;
+
     private bool _keyMode = false;
     private Rigidbody2D _rigidbody;
     private Vector3 _bounds;
     private bool _allowFire = true;
-
+    private int _collisions = 0;
+    
     void Start()
     {
         _bounds  = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
@@ -33,8 +40,15 @@ public class Player : MonoBehaviour
             if (_allowFire)
                 StartCoroutine(FireProjectile());
         }
-        
-        if (Input.GetKeyDown(KeyCode.M)) _keyMode = !_keyMode;
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            _keyMode = !_keyMode;
+            if (_keyMode)
+                controlMode.text = "Mode: Keys";
+            else
+                controlMode.text = "Mode: Mouse";
+        }
     }
 
     private IEnumerator FireProjectile()
@@ -58,7 +72,7 @@ public class Player : MonoBehaviour
             speed += Input.GetAxis("Vertical");
             newPos += transform.up * (Time.deltaTime * speed);
 
-            float wrapX = _bounds.x + 4f;
+            float wrapX = _bounds.x + 2f;
             float wrapY = _bounds.y + 4f;
             
             
@@ -76,6 +90,15 @@ public class Player : MonoBehaviour
             pos.y = Math.Clamp(pos.y, -_bounds.y, _bounds.y);
             
             _rigidbody.position = pos;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            _collisions++;
+            collisionsText.text = "Collisions: " + _collisions;
         }
     }
 }
