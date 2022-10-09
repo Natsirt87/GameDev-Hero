@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         {
             _keyMode = !_keyMode;
             if (_keyMode)
-                controlMode.text = "Mode: Keys";
+                controlMode.text = "Mode: Keyboard";
             else
                 controlMode.text = "Mode: Mouse";
         }
