@@ -81,7 +81,10 @@ crashlytics-build.properties
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-.idea/
+.idea/**/encodings.xml
+.idea/**/indexLayout.xml
+.idea/**/projectSettingsUpdater.xml
+.idea/**/vcs.xml
 
 # AWS User-specific
 .idea/**/aws.xml
