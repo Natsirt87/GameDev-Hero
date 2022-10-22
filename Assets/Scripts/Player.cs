@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _bounds  = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,0));
+        _bounds.x += 4;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 

@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 8073525275890318030}
   - component: {fileID: 8073525275890318029}
   - component: {fileID: 8073525275890318028}
-  - component: {fileID: 6680645905232986216}
   - component: {fileID: -2720478742953846085}
+  - component: {fileID: 4344777205213278807}
   m_Layer: 0
-  m_Name: Plane
-  m_TagString: Enemy
+  m_Name: Waypoint
+  m_TagString: Waypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8073525275890317875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.892085, y: -1.6122298, z: 0}
+  m_LocalPosition: {x: 100, y: 50, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c67e82066e0636cea4ecf0fd80b64f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75dfafc53d0c05443b1f2af8163dce5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.61, y: 1.89}
+    oldSize: {x: 2.35, y: 2.84}
     newSize: {x: 1.61, y: 1.89}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -153,22 +153,6 @@ PolygonCollider2D:
       - {x: 0.315, y: 0.16499999}
       - {x: 0.315, y: 0.265}
       - {x: 0.295, y: 0.285}
---- !u!114 &6680645905232986216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8073525275890317875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24e6f647c6d2e2c4ab0b1d661f9064e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  health: 100
-  speed: 20
-  rotationSpeed: 8
 --- !u!50 &-2720478742953846085
 Rigidbody2D:
   serializedVersion: 4
@@ -190,3 +174,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4344777205213278807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073525275890317875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ccc64784cc75823ba97f98ad0784f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  health: 100
