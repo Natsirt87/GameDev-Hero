@@ -5,7 +5,7 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
     public EnemyManager manager;
-    
+
     [SerializeField] public int health = 100;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,5 +23,10 @@ public class Waypoint : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    public void toggleVisibility()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] public GameObject waypoint;
     [SerializeField] public Sprite[] waypointSprites;
-
-    [SerializeField] public TextMeshProUGUI enemyCount;
+    
     [SerializeField] public TextMeshProUGUI enemiesDestroyedText;
+    [SerializeField] public TextMeshProUGUI sequenceText;
+
+    public bool sequential = true;
 
     private List<Waypoint> _waypoints;
     private List<Enemy> _enemies;
@@ -21,8 +24,6 @@ public class EnemyManager : MonoBehaviour
     
     private void Start()
     {
-        enemyCount.text = "Enemies: " + numEnemies;
-
         _enemies = new List<Enemy>();
         _waypoints = new List<Waypoint>();
         
@@ -34,6 +35,25 @@ public class EnemyManager : MonoBehaviour
             SpawnEnemy(false);
         
         SpawnWaypoints();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            for (int i = 0; i < _waypoints.Count; i++)
+            {
+               _waypoints[i].toggleVisibility();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            
+            sequential = !sequential;
+
+            sequenceText.text = "Plane Mode: " + (sequential ? "Sequential" : "Random");
+        }
     }
 
     public void SpawnEnemy(bool playerDestroyed)

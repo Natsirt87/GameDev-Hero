@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] public float speed = 15f;
     [SerializeField] public float rotationSpeed = 8f;
     
-    private bool _sequential = false;
     private List<Waypoint> _waypoints;
     private Vector3 _curWaypoint;
     private int _curWaypointIndex;
@@ -49,7 +48,7 @@ public class Enemy : MonoBehaviour
 
     private void NextWaypoint()
     {
-        if (_sequential)
+        if (manager.sequential)
             _curWaypointIndex = (_curWaypointIndex < _waypoints.Count - 1 ? _curWaypointIndex + 1 : 0);
         else
             _curWaypointIndex = Random.Range(0, _waypoints.Count - 1);

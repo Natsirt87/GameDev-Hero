@@ -18,11 +18,15 @@ public class Player : MonoBehaviour
     [SerializeField] public TextMeshProUGUI controlMode;
     [SerializeField] public TextMeshProUGUI collisionsText;
 
+    [SerializeField] public Slider cooldownBar;
+
     private bool _keyMode = false;
     private Rigidbody2D _rigidbody;
     private Vector3 _bounds;
     private bool _allowFire = true;
     private int _collisions = 0;
+
+    private float timeToCooldown = 0;
     
     void Start()
     {
@@ -50,6 +54,13 @@ public class Player : MonoBehaviour
             else
                 controlMode.text = "Mode: Mouse";
         }
+
+        if (!_allowFire)
+        {
+            timeToCooldown += Time.deltaTime / 0.2f;
+            cooldownBar.transform.localScale =
+                Vector3.Lerp(new Vector3(1, 3, 0), new Vector3(0, 3, 0), timeToCooldown);
+        }
     }
 
     private IEnumerator FireProjectile()
@@ -58,8 +69,9 @@ public class Player : MonoBehaviour
         GameObject spawnedProjectile = Instantiate(projectile);
         spawnedProjectile.transform.up = transform.up;
         spawnedProjectile.transform.position = transform.position + (transform.up * 4);
-        spawnedProjectile.GetComponent<Rigidbody2D>().velocity = (Vector2)(transform.up * (eggSpeed + _rigidbody.velocity.magnitude)); 
+        spawnedProjectile.GetComponent<Rigidbody2D>().velocity = (Vector2)(transform.up * (eggSpeed + _rigidbody.velocity.magnitude));
         yield return new WaitForSeconds(.2f);
+        timeToCooldown = 0f;
         _allowFire = true;
     }
     
